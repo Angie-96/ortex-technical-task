@@ -11,15 +11,39 @@
   overflow: hidden;
 
   .modal {
-    max-width: 600px;
+    max-width: 500px;
     background-color: white;
     color: black;
-    padding: 30px;
+    padding: 20px;
+    width: 90vw;
     border-radius: 20px;
+    text-align: center;
+
+    .closeBtn {
+      text-align: right;
+      button {
+        background-color: transparent;
+        border: none;
+        padding: 0;
+      }
+    }
 
     input {
       background-color: transparent;
       color: black;
+    }
+
+    button {
+      margin: 0 auto;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  .backdrop {
+    .modal {
+      padding: 30px;
+      width: 100%;
     }
   }
 }

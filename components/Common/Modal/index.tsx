@@ -1,4 +1,6 @@
+import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { Button } from '../Button';
 import { Input } from '../Input';
 
 import styles from './Modal.module.scss';
@@ -58,13 +60,18 @@ const Modal = ({ handleClose, text }: ModalProps) => {
         animate="visible"
         exit="exit"
       >
+        <div className={styles.closeBtn}>
+          <button onClick={handleClose}>
+            <Image src="/icons/cross.svg" alt="" width={30} height={30} />
+          </button>
+        </div>
         <p>{text}</p>
         <form>
           {recoverPasswordInputItems.map((el) => (
             <Input key={el.inputName} {...el} />
           ))}
         </form>
-        <button onClick={handleClose}>Close</button>
+        <Button action={handleClose} text="Send" />
       </motion.div>
     </motion.div>
   );
