@@ -1,16 +1,16 @@
 .videoBgContainer {
   height: 100vh;
+  overflow: hidden;
   position: fixed;
   width: 100vw;
   z-index: -1;
-  overflow: hidden;
 
   video {
-    height: 100%;
-    width: auto;
     filter: blur(3px);
+    height: 100%;
     object-fit: cover;
     transform: scale(1.06);
+    width: auto;
   }
 }
 

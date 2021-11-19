@@ -1,24 +1,24 @@
 .inputContainer {
   margin: 20px 0;
-  width: 100%;
   position: relative;
+  width: 100%;
 
   .inputIcon {
+    align-items: center;
+    display: flex;
+    left: 10px;
     position: absolute;
     top: 50%;
-    left: 10px;
     transform: translateY(-50%);
-    display: flex;
-    align-items: center;
   }
 
   input {
-    height: 50px;
-    width: 100%;
     background-color: #2f303481;
-    border: 1px solid #4b5663;
     border-radius: 5px;
+    border: 1px solid #4b5663;
     color: white;
+    height: 50px;
     padding: 0 20px 0 45px;
+    width: 100%;
   }
 }

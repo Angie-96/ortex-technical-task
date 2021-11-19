@@ -1,28 +1,28 @@
 .floatingBoxContainer {
-  background-color: rgba(255, 255, 255, 0.438);
-  width: max-content;
-  height: max-content;
-  min-height: 80px;
-  max-width: 110px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.13);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  background-color: rgba(255, 255, 255, 0.438);
+  background: rgba(255, 255, 255, 0.13);
   border-radius: 10px;
+  border-radius: 10px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  height: max-content;
   margin: 0 2px;
+  max-width: 110px;
+  min-height: 80px;
   padding: 5px 0;
+  width: max-content;
 
   .wrapper {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
     height: 100%;
 
     .currCountries {
       display: block;
-      width: 35px;
       margin: 5px 0;
+      width: 35px;
     }
 
     div {
@@ -55,8 +55,8 @@
 @media (min-width: 992px) {
   .floatingBoxContainer {
     margin: 30px 0;
-    width: 100%;
     max-width: 250px;
+    width: 100%;
 
     &:first-child,
     &:last-child {
@@ -64,8 +64,8 @@
     }
 
     .wrapper {
-      padding: 0 20px;
       flex-direction: row;
+      padding: 0 20px;
 
       .currCountries {
         width: 50px;
