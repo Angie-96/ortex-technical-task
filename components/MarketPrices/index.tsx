@@ -1,5 +1,11 @@
+import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { FloatingBox } from '../Common/FloatingBox';
+import {
+  MarketPricesLoader,
+  MarketPricesLoaderDesktop,
+} from '../Common/Loaders/MarketPricesLoader';
+import { useMediaQuery } from '../Common/MediaQuery';
 
 import styles from './MarketPrices.module.scss';
 
@@ -9,7 +15,9 @@ const marketPricesMockup = [
 ];
 
 const MarketPrices = () => {
-  const [marketPrice, setMarketPrice] = useState<any>(null);
+  const [EURUSDMarketPrice, setEURUSDMarketPrice] = useState<any>(null);
+  const [GBPUSDMarketPrice, setGBPUSDMarketPrice] = useState<any>(null);
+  const [AUDUSDMarketPrice, setAUDUSDMarketPrice] = useState<any>(null);
 
   useEffect(() => {
     const socketConnection = new WebSocket(
@@ -20,40 +28,76 @@ const MarketPrices = () => {
         socketConnection.send(
           JSON.stringify({ topic: 'subscribe', to: 'EURUSD:CUR' }),
         );
+        socketConnection.send(
+          JSON.stringify({ topic: 'subscribe', to: 'GBPUSD:CUR' }),
+        );
+        socketConnection.send(
+          JSON.stringify({ topic: 'subscribe', to: 'AUDUSD:CUR' }),
+        );
+
         socketConnection.onmessage = (message) => {
           const data = JSON.parse(message.data);
 
-          if (data.topic === 'EURUSD') {
-            setMarketPrice(data);
+          switch (data.topic) {
+            case 'EURUSD':
+              setEURUSDMarketPrice(data);
+              break;
+            case 'GBPUSD':
+              setGBPUSDMarketPrice(data);
+              break;
+            case 'AUDUSD':
+              setAUDUSDMarketPrice(data);
+              break;
           }
         };
       }
     };
   }, []);
 
-  if (marketPrice !== null) {
-    console.log(new Date(marketPrice.dt).toLocaleString());
-  }
+  const isDesktop = useMediaQuery('(min-width: 992px)');
+
+  const loader = isDesktop ? (
+    <div className={styles.loaderContainer}>
+      <MarketPricesLoaderDesktop />
+    </div>
+  ) : (
+    <div className={styles.loaderContainer}>
+      <MarketPricesLoader />
+    </div>
+  );
 
   return (
     <section className={styles.marketPricesContainer}>
-      {marketPrice !== null ? (
+      {EURUSDMarketPrice !== null ? (
         <FloatingBox
-          icon={`/icons/${marketPrice.topic}.svg`}
-          title={marketPrice.topic}
-          value={marketPrice.price}
+          icon={`/icons/${EURUSDMarketPrice.topic}.svg`}
+          title={EURUSDMarketPrice.topic}
+          value={EURUSDMarketPrice.price}
+          lastUpd={EURUSDMarketPrice.dt}
         />
       ) : (
-        ''
+        loader
       )}
-      {marketPricesMockup.map((mPrice) => (
+      {GBPUSDMarketPrice !== null ? (
         <FloatingBox
-          key={mPrice.topic}
-          icon={`/icons/${mPrice.topic}.svg`}
-          title={mPrice.topic}
-          value={mPrice.price}
+          icon={`/icons/${GBPUSDMarketPrice.topic}.svg`}
+          title={GBPUSDMarketPrice.topic}
+          value={GBPUSDMarketPrice.price}
+          lastUpd={GBPUSDMarketPrice.dt}
         />
-      ))}
+      ) : (
+        loader
+      )}
+      {AUDUSDMarketPrice !== null ? (
+        <FloatingBox
+          icon={`/icons/${AUDUSDMarketPrice.topic}.svg`}
+          title={AUDUSDMarketPrice.topic}
+          value={AUDUSDMarketPrice.price}
+          lastUpd={AUDUSDMarketPrice.dt}
+        />
+      ) : (
+        loader
+      )}
     </section>
   );
 };
