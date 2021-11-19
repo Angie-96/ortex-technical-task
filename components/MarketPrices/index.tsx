@@ -21,7 +21,7 @@ const MarketPrices = () => {
 
   useEffect(() => {
     const socketConnection = new WebSocket(
-      'ws://stream.tradingeconomics.com/?client=guest:guest',
+      'wss://stream.tradingeconomics.com/?client=guest:guest',
     );
     socketConnection.onopen = (event: any) => {
       if (event.currentTarget.readyState == 1) {
