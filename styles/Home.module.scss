@@ -6,11 +6,13 @@
   margin: 0 auto;
   max-width: 1200px;
   min-height: 100vh;
+  padding: 20vh 0;
 }
 
 @media (min-width: 992px) {
   .main {
     flex-direction: row;
     justify-content: space-around;
+    padding: 0;
   }
 }
