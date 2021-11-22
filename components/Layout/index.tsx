@@ -4,7 +4,7 @@ const Layout = ({ children }: any) => {
   return (
     <>
       <div className={styles.videoBgContainer}>
-        <video loop autoPlay>
+        <video loop autoPlay muted>
           <source src="/video/ortex-bg-video.mp4" type="video/mp4" />
         </video>
       </div>
