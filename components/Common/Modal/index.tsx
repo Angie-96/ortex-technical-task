@@ -28,10 +28,8 @@ const Modal = ({ handleClose, text }: ModalProps) => {
     alert(
       `We’ve sent instructions on how to reset your password to ${emailAccount}`,
     );
-    setTimeout(() => {
-      handleClose();
-      reset();
-    }, 0);
+    handleClose();
+    reset();
   };
 
   const dropIn = {
@@ -94,9 +92,7 @@ const Modal = ({ handleClose, text }: ModalProps) => {
             }}
             error={
               errors.email && (
-                <span className={styles.isRequired}>
-                  {errors.email.message}
-                </span>
+                <span className="isRequired">{errors.email.message}</span>
               )
             }
           />

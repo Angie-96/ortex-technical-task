@@ -77,7 +77,7 @@ const Login = () => {
           }}
           error={
             errors.email && (
-              <span className={styles.isRequired}>{errors.email.message}</span>
+              <span className="isRequired">{errors.email.message}</span>
             )
           }
         />
@@ -100,9 +100,7 @@ const Login = () => {
           }}
           error={
             errors.password && (
-              <span className={styles.isRequired}>
-                {errors.password.message}
-              </span>
+              <span className="isRequired">{errors.password.message}</span>
             )
           }
         />
