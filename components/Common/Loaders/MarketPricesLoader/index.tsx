@@ -2,6 +2,7 @@ import ContentLoader from 'react-content-loader';
 
 const MarketPricesLoader = () => (
   <ContentLoader
+    uniqueKey="MarketPricesLoader"
     backgroundColor="#ffffff21"
     foregroundColor="#ffffff45"
     viewBox="0 0 102 120"
@@ -15,6 +16,7 @@ const MarketPricesLoader = () => (
 
 const MarketPricesLoaderDesktop = () => (
   <ContentLoader
+    uniqueKey="MarketPricesLoaderDesktop"
     backgroundColor="#ffffff21"
     foregroundColor="#ffffff45"
     viewBox="0 0 250 80"
