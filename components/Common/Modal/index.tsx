@@ -4,25 +4,36 @@ import { Button } from '../Button';
 import { Input } from '../Input';
 
 import styles from './Modal.module.scss';
+import { useForm } from 'react-hook-form';
 
 interface ModalProps {
   handleClose(): any;
   text: string;
 }
 
-const recoverPasswordInputItems = [
-  {
-    inputName: 'email',
-    placeholder: 'Email',
-    type: 'text',
-    icon: '/icons/at.svg',
-    inputValidation: {
-      required: true,
-    },
-  },
-];
+interface formDataProps {
+  email: string;
+}
 
 const Modal = ({ handleClose, text }: ModalProps) => {
+  const {
+    handleSubmit,
+    reset,
+    register,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmitRecoverPassword = (formData: formDataProps) => {
+    const emailAccount = formData.email;
+    alert(
+      `We’ve sent instructions on how to reset your password to ${emailAccount}`,
+    );
+    setTimeout(() => {
+      handleClose();
+      reset();
+    }, 0);
+  };
+
   const dropIn = {
     hidden: {
       y: '-100vh',
@@ -66,12 +77,31 @@ const Modal = ({ handleClose, text }: ModalProps) => {
           </button>
         </div>
         <p>{text}</p>
-        <form>
-          {recoverPasswordInputItems.map((el) => (
-            <Input key={el.inputName} {...el} />
-          ))}
+        <form onSubmit={handleSubmit(onSubmitRecoverPassword)}>
+          <Input
+            placeholder="Email"
+            type="text"
+            icon="/icons/at.svg"
+            register={{
+              ...register('email', {
+                required: 'Email is required.',
+                pattern: {
+                  value:
+                    /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                  message: 'Invalid email address.',
+                },
+              }),
+            }}
+            error={
+              errors.email && (
+                <span className={styles.isRequired}>
+                  {errors.email.message}
+                </span>
+              )
+            }
+          />
         </form>
-        <Button action={handleClose} text="Send" />
+        <Button action={handleSubmit(onSubmitRecoverPassword)} text="Send" />
       </motion.div>
     </motion.div>
   );
