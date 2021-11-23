@@ -4,6 +4,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from '../Common/Button';
 import { Input } from '../Common/Input';
+import { SubmitLoader } from '../Common/Loaders/SubmitLoader';
 import { Modal } from '../Common/Modal';
 
 import styles from './Login.module.scss';
@@ -14,6 +15,9 @@ interface formDataProps {
 }
 
 const Login = () => {
+  const [showModal, setShowModal] = React.useState(false);
+  const [isLoggingIn, setIsLoggingIn] = React.useState(false);
+
   const {
     handleSubmit,
     reset,
@@ -21,15 +25,20 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const [showModal, setShowModal] = React.useState(false);
-
   const onSubmit = (formData: formDataProps) => {
+    setIsLoggingIn(true);
+
     const userData = formData;
-    console.log(userData);
-    alert('You logged in successfully');
-    reset();
+    /* console.log(userData); */
+
+    setTimeout(() => {
+      setIsLoggingIn(false);
+      reset();
+      alert('You logged in successfully');
+    }, 1500);
   };
 
+  //Framer Motion animation variants
   const sectionVariants = {
     hidden: { opacity: 0 },
     show: {
@@ -110,7 +119,14 @@ const Login = () => {
             action={() => setShowModal(!showModal)}
           />
         </div>
-        <Button text="Submit" action={handleSubmit(onSubmit)} />
+        {isLoggingIn ? (
+          <SubmitLoader
+            backgroundColor="#ffffff21"
+            foregroundColor="#ffffff45"
+          />
+        ) : (
+          <Button text="Submit" action={handleSubmit(onSubmit)} />
+        )}
       </motion.form>
       <AnimatePresence
         initial={false}

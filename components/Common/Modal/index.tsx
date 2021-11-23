@@ -5,6 +5,8 @@ import { Input } from '../Input';
 
 import styles from './Modal.module.scss';
 import { useForm } from 'react-hook-form';
+import { SubmitLoader } from '../Loaders/SubmitLoader';
+import React from 'react';
 
 interface ModalProps {
   handleClose(): any;
@@ -16,6 +18,8 @@ interface formDataProps {
 }
 
 const Modal = ({ handleClose, text }: ModalProps) => {
+  const [isRecoveringPassword, setIsRecoveringPassword] = React.useState(false);
+
   const {
     handleSubmit,
     reset,
@@ -24,14 +28,22 @@ const Modal = ({ handleClose, text }: ModalProps) => {
   } = useForm();
 
   const onSubmitRecoverPassword = (formData: formDataProps) => {
+    setIsRecoveringPassword(true);
+
     const emailAccount = formData.email;
-    alert(
-      `We’ve sent instructions on how to reset your password to ${emailAccount}`,
-    );
-    handleClose();
-    reset();
+    /* console.log(emailAccount); */
+
+    setTimeout(() => {
+      setIsRecoveringPassword(false);
+      handleClose();
+      reset();
+      alert(
+        `We’ve sent instructions on how to reset your password to ${emailAccount}`,
+      );
+    }, 1500);
   };
 
+  //Framer Motion animation variants
   const dropIn = {
     hidden: {
       y: '-100vh',
@@ -97,7 +109,11 @@ const Modal = ({ handleClose, text }: ModalProps) => {
             }
           />
         </form>
-        <Button action={handleSubmit(onSubmitRecoverPassword)} text="Send" />
+        {isRecoveringPassword ? (
+          <SubmitLoader backgroundColor="#01bfbc7a" foregroundColor="#01bfbd" />
+        ) : (
+          <Button text="Send" action={handleSubmit(onSubmitRecoverPassword)} />
+        )}
       </motion.div>
     </motion.div>
   );
