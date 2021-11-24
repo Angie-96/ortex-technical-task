@@ -1,13 +1,14 @@
+import { ButtonHTMLAttributes } from 'react';
 import styles from './Button.module.scss';
 
-interface ButtonProps {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   text: string;
-  action(): any;
+  action: () => void;
 }
 
-const Button = ({ text, action }: ButtonProps) => {
+const Button = ({ text, action, ...rest }: ButtonProps) => {
   return (
-    <button className={styles.button} onClick={action}>
+    <button className={styles.button} onClick={action} {...rest}>
       {text}
     </button>
   );
