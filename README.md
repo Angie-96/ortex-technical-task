@@ -9,7 +9,7 @@
 
 ## Preview
 
-![screenshot](https://github.com/Angie-96/ortex-technical-task/blob/main/public/screenshot.png?raw=true)
+![screenshot](https://github.com/Angie-96/ortex-technical-task/blob/main/public/ortex-preview.gif?raw=true)
 
 ## How To Use
 
