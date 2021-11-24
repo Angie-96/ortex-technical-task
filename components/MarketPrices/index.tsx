@@ -1,20 +1,16 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { FloatingBox } from '../Common/FloatingBox';
 import {
   MarketPricesLoader,
   MarketPricesLoaderDesktop,
 } from '../Common/Loaders/MarketPricesLoader';
-import { useMediaQuery } from '../Common/MediaQuery';
 
 import styles from './MarketPrices.module.scss';
 
-const marketPricesMockup = [
-  { topic: 'GBPUSD', price: 1.3474 },
-  { topic: 'AUDUSD', price: 0.726 },
-];
-
 const MarketPrices = () => {
+  //Websocket connection
   const [EURUSDMarketPrice, setEURUSDMarketPrice] = useState<any>(null);
   const [GBPUSDMarketPrice, setGBPUSDMarketPrice] = useState<any>(null);
   const [AUDUSDMarketPrice, setAUDUSDMarketPrice] = useState<any>(null);
@@ -54,6 +50,16 @@ const MarketPrices = () => {
     };
   }, []);
 
+  //Add slash to market price name(topic)
+
+  const topicRegex = (topic: string) => {
+    const regex = /(.*)(USD)/;
+
+    return topic.replace(regex, '$1/$2');
+  };
+
+  //Loaders for mobile and desktop
+
   const isDesktop = useMediaQuery('(min-width: 992px)');
 
   const loader = isDesktop ? (
@@ -71,9 +77,9 @@ const MarketPrices = () => {
       {EURUSDMarketPrice !== null ? (
         <FloatingBox
           icon={`/icons/${EURUSDMarketPrice.topic}.svg`}
-          title={EURUSDMarketPrice.topic}
+          title={topicRegex(EURUSDMarketPrice.topic)}
           value={EURUSDMarketPrice.price}
-          lastUpd={EURUSDMarketPrice.dt}
+          lastUpdate={EURUSDMarketPrice.dt}
         />
       ) : (
         loader
@@ -81,9 +87,9 @@ const MarketPrices = () => {
       {GBPUSDMarketPrice !== null ? (
         <FloatingBox
           icon={`/icons/${GBPUSDMarketPrice.topic}.svg`}
-          title={GBPUSDMarketPrice.topic}
+          title={topicRegex(GBPUSDMarketPrice.topic)}
           value={GBPUSDMarketPrice.price}
-          lastUpd={GBPUSDMarketPrice.dt}
+          lastUpdate={GBPUSDMarketPrice.dt}
         />
       ) : (
         loader
@@ -91,9 +97,9 @@ const MarketPrices = () => {
       {AUDUSDMarketPrice !== null ? (
         <FloatingBox
           icon={`/icons/${AUDUSDMarketPrice.topic}.svg`}
-          title={AUDUSDMarketPrice.topic}
+          title={topicRegex(AUDUSDMarketPrice.topic)}
           value={AUDUSDMarketPrice.price}
-          lastUpd={AUDUSDMarketPrice.dt}
+          lastUpdate={AUDUSDMarketPrice.dt}
         />
       ) : (
         loader
