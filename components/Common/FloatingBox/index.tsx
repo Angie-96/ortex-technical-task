@@ -7,10 +7,10 @@ interface FloatingBoxProps {
   icon: string;
   title: string;
   value: number;
-  lastUpd: number;
+  lastUpdate: number;
 }
 
-const FloatingBox = ({ icon, title, value, lastUpd }: FloatingBoxProps) => {
+const FloatingBox = ({ icon, title, value, lastUpdate }: FloatingBoxProps) => {
   return (
     <motion.div
       className={styles.floatingBoxContainer}
@@ -25,7 +25,7 @@ const FloatingBox = ({ icon, title, value, lastUpd }: FloatingBoxProps) => {
           <h5>{title}</h5>
           <p>{value}</p>
           <p className={styles.lastUpdate}>
-            {new Date(lastUpd).toLocaleString()}
+            {new Date(lastUpdate).toLocaleString()}
           </p>
         </div>
       </div>

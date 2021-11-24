@@ -9,11 +9,11 @@ import { SubmitLoader } from '../Loaders/SubmitLoader';
 import React from 'react';
 
 interface ModalProps {
-  handleClose(): any;
+  handleClose: () => void;
   text: string;
 }
 
-interface formDataProps {
+interface FormData {
   email: string;
 }
 
@@ -27,7 +27,7 @@ const Modal = ({ handleClose, text }: ModalProps) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmitRecoverPassword = (formData: formDataProps) => {
+  const onSubmitRecoverPassword = (formData: FormData) => {
     setIsRecoveringPassword(true);
 
     const emailAccount = formData.email;

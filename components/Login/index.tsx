@@ -9,7 +9,7 @@ import { Modal } from '../Common/Modal';
 
 import styles from './Login.module.scss';
 
-interface formDataProps {
+interface FormData {
   email: string;
   password: string;
 }
@@ -25,7 +25,7 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (formData: formDataProps) => {
+  const onSubmit = (formData: FormData) => {
     setIsLoggingIn(true);
 
     const userData = formData;
