@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
 import { Button } from '../Common/Button';
 import { Input } from '../Common/Input';
 import { SubmitLoader } from '../Common/Loaders/SubmitLoader';
@@ -28,14 +29,18 @@ const Login = () => {
   const onSubmit = (formData: FormData) => {
     setIsLoggingIn(true);
 
-    const userData = formData;
-    /* console.log(userData); */
-
-    setTimeout(() => {
-      setIsLoggingIn(false);
-      reset();
-      alert('You logged in successfully');
-    }, 1500);
+    axios
+      .post('/api/login', formData)
+      .then(() => {
+        setTimeout(() => {
+          setIsLoggingIn(false);
+          reset();
+          alert('You logged in successfully.');
+        }, 1500);
+      })
+      .catch(() => {
+        alert('Ups, an error occurred, try again later.');
+      });
   };
 
   //Framer Motion animation variants
@@ -115,8 +120,9 @@ const Login = () => {
         />
         <div className={styles.recoverPassword}>
           <Button
+            type="button"
             text="Forgot your password?"
-            action={() => setShowModal(!showModal)}
+            action={() => setShowModal(true)}
           />
         </div>
         {isLoggingIn ? (
@@ -125,7 +131,7 @@ const Login = () => {
             foregroundColor="#ffffff45"
           />
         ) : (
-          <Button text="Submit" action={handleSubmit(onSubmit)} />
+          <Button type="submit" text="Submit" action={handleSubmit(onSubmit)} />
         )}
       </motion.form>
       <AnimatePresence
