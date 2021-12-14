@@ -39,7 +39,10 @@ const Login = () => {
         }, 1500);
       })
       .catch(() => {
-        alert('Oops, an error occurred, try again later.');
+        setTimeout(() => {
+          setIsLoggingIn(false);
+          alert('Oops, an error occurred, try again later.');
+        }, 1500);
       });
   };
 
