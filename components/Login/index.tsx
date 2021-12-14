@@ -29,6 +29,11 @@ const Login = () => {
   const onSubmit = (formData: FormData) => {
     setIsLoggingIn(true);
 
+    // This will fail when using the static version of the site,
+    // because it's trying to connect to Next's API.
+    // This could be fixed by running the site as SSR instead of static,
+    // or by connecting to a different site serving the API (e.g. an express API).
+
     axios
       .post('/api/login', formData)
       .then(() => {
