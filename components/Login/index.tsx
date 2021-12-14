@@ -39,7 +39,7 @@ const Login = () => {
         }, 1500);
       })
       .catch(() => {
-        alert('Ups, an error occurred, try again later.');
+        alert('Oops, an error occurred, try again later.');
       });
   };
 
